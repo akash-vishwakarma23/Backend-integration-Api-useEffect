@@ -1,12 +1,15 @@
-import React, { useState } from 'react'
-import axios from 'axios'
+import React, { useEffect, useState } from 'react'
+import axios from "../utils/Axios"
 
 const Show = () => {
     const [products, setProduct] = useState([])
 
+    useEffect(() =>{
+      getProducts()
+    },[])
+
     const getProducts = () =>{
-      const api = 'https://fakestoreapi.com/products'
-      axios.get(api).then((products)=>{
+      axios.get("/products").then((products)=>{
         console.log(products)
         setProduct(products.data)
       })
@@ -30,7 +33,7 @@ const Show = () => {
   
   return (
     <div>
-        <button onClick={getProducts} className='px-2 py-1 bg-pink-500 text-white mb-4'>Call Product Api</button>
+        {/* <button onClick={getProducts} className='px-2 py-1 bg-pink-500 text-white mb-4'>Call Product Api</button> */}
        <ul>
         {products.length > 0 ? products.map(p => <li key={p.id} className='px-2 py-1 bg-red-200 rounded-md text-lg mb-1'>{p.title}</li>) : <h1 className=' text-xl font-semibold'>Loading...</h1> }
         
